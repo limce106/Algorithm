@@ -17,6 +17,9 @@ int main() {
         if (min_one > b) {
             min_one = b;
         }
+
+        // min_six = min(min_six, x);
+        // min_one = min(min_one, y);
     }
 
     int price1 = (line / 6 + 1) * min_six;
