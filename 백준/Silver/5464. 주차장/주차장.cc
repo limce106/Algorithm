@@ -8,6 +8,7 @@ int main() {
     int M; // 차량 수
     cin >> N >> M;
 
+    // 배열은 상수 크기만을 가질 수 있으므로 벡터 사용
     vector<int> cost(N); // 주차 공간 s의 가격
     vector<int> weight(M); // k번째 차의 무게
     vector<int> isParking = vector<int>(N, 0); // 주차 여부, 0이면 비어있고 아니라면 차량 번호 값을 갖는다.
