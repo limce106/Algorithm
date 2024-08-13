@@ -13,7 +13,7 @@ void DFS(int x, int y, int count, int num){
         return;
     }
     
-    for(int i = 0; i < 5; i++){
+    for(int i = 0; i < 4; i++){
         // px, py는 현재 좌표(x, y)에서 이동한 좌표 ([0][0] ~ [4][4])
         int px = x + xx[i];
         int py = y + yy[i];
