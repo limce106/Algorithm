@@ -64,11 +64,9 @@ int main(){
     cin >> R >> C;
     
     for(int i = 0; i < R; i++){
-        cin >> arr[i];
-    }
-    
-    for(int i = 0; i < R; i++){
-        for(int j = 0; j < C; j++){            
+        for(int j = 0; j < C; j++){
+            cin >> arr[i][j];
+            
             if(arr[i][j] == 'o'){
                 sheep++;
             }
