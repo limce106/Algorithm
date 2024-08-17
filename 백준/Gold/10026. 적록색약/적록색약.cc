@@ -20,6 +20,7 @@ void DFS(int x, int y){
         if(px < 0 || px >= N || py < 0 || py >= N)
             continue;
         
+        // 다음 탐색하는 좌표가 현재 좌표와 색이 같고 방문하지 않았다면
         if(!visit[px][py] && arr[px][py] == arr[x][y]){
             visit[px][py] = true;
             DFS(px, py);
@@ -32,11 +33,13 @@ int main(){
     for(int i = 0; i < N; i++)
         cin >> arr[i];
     
+    // 적록색약이 아닌 사람이 보았을 때의 구역 수
     for(int i = 0; i < N; i++){
         for(int j = 0; j < N; j++){
-            if(!visit[i][j])
-                RGnotEqual++;
+            if(!visit[i][j]){
                 DFS(i, j);
+                RGnotEqual++; // DFS가 끝났다면 한 구역을 다 돈 것이 되기에 구역의 수 1 증가
+            }
         }
     }
     
@@ -48,11 +51,13 @@ int main(){
         }
     }
     
+    // 적록색약인 사람이 보았을 때의 구역 
     for(int i = 0; i < N; i++){
         for(int j = 0; j < N; j++){
-            if(!visit[i][j])
-                RGEqual++;
+            if(!visit[i][j]){
                 DFS(i, j);
+                RGEqual++; // DFS가 끝났다면 한 구역을 다 돈 것이 되기에 구역의 수 1 증가
+            }
         }
     }
     
