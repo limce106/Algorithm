@@ -1,4 +1,4 @@
-// 정확히 이해 못 함..
+// 나중에 다시 풀어볼 것.
 
 #include <iostream>
 #include <vector>
