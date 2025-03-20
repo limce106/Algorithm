@@ -38,6 +38,7 @@ int main() {
         Student temp;
         cin >> temp.name >> temp.kor >> temp.eng >> temp.math;
 
+        // push_back은 O(1) -> n번 실행하면 O(n)
         s.push_back(temp);
     }
 
