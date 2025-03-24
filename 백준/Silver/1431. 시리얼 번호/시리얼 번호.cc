@@ -10,6 +10,7 @@ int sum(string s) {
 
     for(int i = 0; i < s.size(); i++){
         if (s[i] >= '0' && s[i] <= '9') {
+            // '0'의 ASCII 값은 48. 이 방식은 문자열 내에 있는 숫자 문자를 정수로 변환할 때 자주 사용
             total += s[i] - '0';
         }
     }
