@@ -40,3 +40,7 @@ int main(){
     
     return 0;
 }
+
+// 중복 없이 n개 중 k개를 고르는 순열이므로 P(n,k)
+// set<string>::insert()는 O(log M), M은 조합 개수
+// 시간복잡도: O(P(n,k)⋅logP(n,k))
