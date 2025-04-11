@@ -44,3 +44,5 @@ int main(){
 
 // 시간 복잡도: O(n!)
 // 가능한 모든 순열 탐색
+
+// todayWeight < 500 조건을 for문 밖으로 빼고 return; 하면 효율적
