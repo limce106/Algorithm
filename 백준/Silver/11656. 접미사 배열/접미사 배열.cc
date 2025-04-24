@@ -24,3 +24,8 @@ int main()
     
     return 0;
 }
+
+// 접미사 생성: s.size()개의 접미사를 생성. s.substr(i)는 길이 O(n - i)의 문자열을 생성하므로, 전체 시간 복잡도는 O(n²)
+// 정렬: 정렬 O(n log n) * 각 문자열 비교 시간(O(n)) = O(n² log n)
+// 출력: O(n²)
+// 시간 복잡도: O(n² log n)
