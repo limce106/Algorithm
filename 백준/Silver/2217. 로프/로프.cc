@@ -29,3 +29,5 @@ int main()
     
     return 0;
 }
+
+// 시간복잡도: O(n log n)
