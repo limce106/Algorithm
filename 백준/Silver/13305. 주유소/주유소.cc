@@ -32,3 +32,5 @@ int main()
     
     return 0;
 }
+
+// 시간 복잡도: O(n)
