@@ -8,14 +8,15 @@ int main()
     cin >> n;
     
     vector<int> cityLen(n-1);
-    vector<int> price(n-1);
-    int ans = 0;
+    vector<int> price(n);
+    // int ans = 0; 오버플로우 발생 가능
+    long long ans = 0;
     
     for(int i = 0; i < n - 1; i++)
     {
         cin >> cityLen[i];
     }
-    for(int i = 0; i < n - 1; i++)
+    for(int i = 0; i < n; i++)
     {
         cin >> price[i];
     }
@@ -24,7 +25,7 @@ int main()
     for(int i = 0; i < n - 1; i++)
     {
         minPrice = min(minPrice, price[i]);
-        ans += min(price[i] * cityLen[i], minPrice * cityLen[i]);
+        ans += (long long)minPrice * cityLen[i];
     }
     
     cout << ans;
