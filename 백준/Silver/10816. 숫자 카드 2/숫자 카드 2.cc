@@ -40,3 +40,7 @@ int main()
     
     return 0;
 }
+
+// 시간 복잡도: O(N log N + M log N)
+// sort: O(N log N)
+// lower_bound / upper_bound → 각각 O(log N), M번 호출되므로 O(M log N)
