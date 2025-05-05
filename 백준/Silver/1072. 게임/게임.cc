@@ -2,12 +2,12 @@
 using namespace std;
 
 long long x, y;
-int ans = 0;
+long long ans = 0;
 int curZ = 0;
 
 void binary_research()
 {
-    int start = 1;
+    long long start = 1;
     long long end = 1000000000;
     long long mid = 0;
     
@@ -33,7 +33,8 @@ int main()
     cin >> x >> y;
     
     curZ = y * 100 / x;
-    
+
+    // 승률이 99%이면 최대 99.999..% 이기 때문에 절대 99% 이상은 못 넘김 (소수점을 버리기 때문)
     if(curZ >= 99)
     {
         cout << -1;
@@ -45,3 +46,7 @@ int main()
     
     return 0;
 }
+// int의 범위는 ±21억 -> int 범위를 넘을 수 있기 때문에 long long 사용
+
+// 시간 복잡도: O(log N)
+// 이진 탐색: O(log N), tempZ: O(1)
