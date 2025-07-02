@@ -3,28 +3,26 @@
 
 using namespace std;
 
-int total = 0;
+int count = 0;
 
-void dfs(vector<int>& numbers, int& target, int sum, int idx)
+void dfs(vector<int>& numbers, int& target, int idx, int curNum)
 {
     if(idx == numbers.size())
     {
-        if(target == sum)
+        if(curNum == target)
         {
-            total++;   
+            count++;
         }
         return;
     }
     
-    dfs(numbers, target, sum + numbers[idx], idx + 1);
-    dfs(numbers, target, sum - numbers[idx], idx + 1);
+    dfs(numbers, target, idx + 1, curNum + numbers[idx]);
+    dfs(numbers, target, idx + 1, curNum - numbers[idx]);
 }
 
 int solution(vector<int> numbers, int target) {
     int answer = 0;
-    
     dfs(numbers, target, 0, 0);
-    answer = total;
-    
+    answer = count;
     return answer;
 }
