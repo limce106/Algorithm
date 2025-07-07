@@ -1,6 +1,7 @@
 #include <string>
 #include <vector>
 #include <queue>
+#include <iostream>
 
 using namespace std;
 
@@ -10,17 +11,22 @@ vector<int> solution(vector<int> progresses, vector<int> speeds) {
     
     for(int i = 0; i < progresses.size(); i++)
     {
-        int remainDay = (100 - progresses[i]) / speeds[i] + ((100 - progresses[i]) % speeds[i] != 0);
-        q.push(remainDay);
+        int remain = 100-progresses[i];
+        
+        int day = remain / speeds[i];
+        if(remain % speeds[i] != 0)
+            day++;
+        
+        q.push(day);
     }
     
     while(!q.empty())
     {
-        int cur = q.front();
+        int temp = q.front();
         q.pop();
         int num = 1;
         
-        while(!q.empty() && q.front() <= cur)
+        while(!q.empty() && temp >= q.front())
         {
             num++;
             q.pop();
