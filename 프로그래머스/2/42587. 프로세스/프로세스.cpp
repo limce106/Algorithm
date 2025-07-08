@@ -1,48 +1,39 @@
 #include <string>
 #include <vector>
 #include <queue>
-#include <algorithm>
 
 using namespace std;
 
 int solution(vector<int> priorities, int location) {
-    int answer = 0;
-    int curIdx = location;
+    queue<pair<int, int>> q;
+    priority_queue<int> pq;
     
-    queue<int> q;
     for(int i = 0; i < priorities.size(); i++)
     {
-        q.push(priorities[i]);
+        q.push({i, priorities[i]}); // 처음 위치, 우선순위
+        pq.push(priorities[i]);     // 우선순위가 높은 순서대로 프로세스 저장
     }
     
-    sort(priorities.begin(), priorities.end());
+    int answer = 0;
     
-    while(true)
+    while(!q.empty())
     {
-        if(q.front() == priorities[priorities.size() - 1])
+        int idx = q.front().first;
+        int pri = q.front().second;
+        q.pop();
+        
+        if(pri == pq.top())
         {
+            pq.pop();
             answer++;
-            q.pop();
-            priorities.pop_back();
-            
-            if(curIdx == 0)
-                break;
-            else
-                curIdx--;
+            if(idx == location)
+                return answer;
         }
         else
         {
-            int front = q.front();
-            q.pop();
-            q.push(front);
-            
-            if(curIdx == 0)
-                curIdx = q.size() - 1;
-            else
-                curIdx--;
+            q.push({idx, pri});
         }
-        
     }
     
-    return answer;
+    return -1;
 }
