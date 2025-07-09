@@ -13,15 +13,10 @@ int solution(vector<int> scoville, int K) {
         pq.push(s);
     }
     
-    while(true)
+    while(pq.top() < K)
     {        
-        if(pq.top() >= K)
-            return answer;
-        else
-        {
-            if(pq.size() == 1)
-                return -1;
-        }
+        if(pq.size() == 1)
+            return -1;
         
         answer++;
         
@@ -32,4 +27,6 @@ int solution(vector<int> scoville, int K) {
         
         pq.push(a + b*2);
     }
+    
+    return answer;
 }
