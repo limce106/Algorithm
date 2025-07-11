@@ -1,38 +1,20 @@
 #include <string>
 #include <vector>
 #include <algorithm>
-#include <iostream>
 
 using namespace std;
 
-int maxValue = 0;
-
-void dp(vector<vector<int>>& triangle, int x, vector<vector<int>>& temp)
-{
-    for(int i = 0; i <= x; i++)
-    {
-        int m = max(temp[x+1][i]+triangle[x][i], temp[x+1][i+1]+triangle[x][i]);
-        temp[x].push_back(m);
-    }
-    
-    if(x == 0)
-    {
-        maxValue = temp[x][0];
-        return;
-    }
-    
-    dp(triangle, x - 1, temp);
-}
 
 int solution(vector<vector<int>> triangle) {
     int answer = 0;
-    vector<vector<int>> temp(triangle.size());
-    for(int i = 0; i < triangle.size(); i++)
+    
+    for(int i = triangle.size() - 2; i >= 0; i--)
     {
-        temp[triangle.size()-1].push_back(triangle[triangle.size()-1][i]);
+        for(int j = 0; j < triangle[i].size(); j++)
+        {
+            triangle[i][j] += max(triangle[i+1][j], triangle[i+1][j+1]);
+        }
     }
     
-    dp(triangle, triangle.size()-2, temp);
-    answer = maxValue;
-    return answer;
+    return triangle[0][0];
 }
