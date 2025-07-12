@@ -13,9 +13,9 @@ int solution(vector<vector<string>> clothes) {
         um[clothes[i][1]]++;
     }
     
-    for(auto& it : um)
+    for(auto& it : clothes)
     {
-        answer *= (it.second+1);
+        answer *= it.value;
     }
     
     return answer-1;
