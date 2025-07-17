@@ -5,44 +5,46 @@
 
 using namespace std;
 
-bool cmpSong(pair<int, int>& a, pair<int, int>& b)
-{
-    if(a.first == b.first)
-        return a.second < b.second;
-        
-    return a.first > b.first;
-}
-
-bool cmpPlaySum(pair<string, int>& a, pair<string, int>& b)
+bool cmpTotal(pair<string, int> a, pair<string, int> b)
 {
     return a.second > b.second;
 }
 
+bool cmpPlay(pair<int, int> a, pair<int, int> b)
+{
+    if(a.first == b.first)
+        return a.second < b.second;
+    
+    return a.first > b.first;
+}
+
 vector<int> solution(vector<string> genres, vector<int> plays) {
     vector<int> answer;
-    map<string, int> genrePlaySum; // 장르명, 전체 플레이 횟수
-    map<string, vector<pair<int, int>>> genreSongs; // 장르별 (재생횟수, 곡 인덱스)
+    map<string, int> totalPlay;
+    map<string, vector<pair<int, int>>> playIdx;
     
     for(int i = 0; i < genres.size(); i++)
     {
-        genrePlaySum[genres[i]] += plays[i];
-        genreSongs[genres[i]].push_back({plays[i], i});
+        totalPlay[genres[i]] += plays[i];
+        playIdx[genres[i]].push_back({plays[i], i});
     }
     
-    for(auto& gs : genreSongs)
+    vector<pair<string, int>> v(totalPlay.begin(), totalPlay.end());
+    sort(v.begin(), v.end(), cmpTotal);
+    
+    for(auto& it : playIdx)
     {
-        sort(gs.second.begin(), gs.second.end(), cmpSong);
+        sort(it.second.begin(), it.second.end(), cmpPlay);
     }
     
-    vector<pair<string, int>> genreSort(genrePlaySum.begin(), genrePlaySum.end());
-    sort(genreSort.begin(), genreSort.end(), cmpPlaySum);
-    
-    for(auto& gs : genreSort)
+    for(int i = 0; i < v.size(); i++)
     {
-        auto& songs = genreSongs[gs.first];
-        for(int i = 0; i < songs.size() && i < 2; i++)
+        string genre = v[i].first;
+        vector<pair<int, int>> p = playIdx[genre];
+        
+        for(int j = 0; j < p.size() && j < 2; j++)
         {
-            answer.push_back(songs[i].second);   
+            answer.push_back(p[j].second);
         }
     }
     
