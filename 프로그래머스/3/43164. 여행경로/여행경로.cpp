@@ -6,11 +6,11 @@ using namespace std;
 
 vector<bool> visited;
 
-bool dfs(string cur, vector<vector<string>>& tickets, vector<string>& answer)
-{   
-    answer.push_back(cur);
+bool dfs(vector<vector<string>>& tickets, vector<string>& answer, string curAirport)
+{
+    answer.push_back(curAirport);
     
-    if(answer.size() == tickets.size() + 1)
+    if(tickets.size() + 1 == answer.size())
         return true;
     
     for(int i = 0; i < tickets.size(); i++)
@@ -18,11 +18,11 @@ bool dfs(string cur, vector<vector<string>>& tickets, vector<string>& answer)
         if(visited[i])
             continue;
         
-        if(tickets[i][0] == cur)
-        {
+        if(tickets[i][0] == curAirport)
+        {         
             visited[i] = true;
             
-            if(dfs(tickets[i][1], tickets, answer))
+            if(dfs(tickets, answer, tickets[i][1]))
             {
                 return true;
             }
@@ -32,17 +32,14 @@ bool dfs(string cur, vector<vector<string>>& tickets, vector<string>& answer)
         }
     }
     
-    
     return false;
 }
 
 vector<string> solution(vector<vector<string>> tickets) {
     vector<string> answer;
-    visited.resize(tickets.size(), false);
+    visited.resize(tickets.size());
     
     sort(tickets.begin(), tickets.end());
-    
-    dfs("ICN", tickets, answer);
-    
+    dfs(tickets, answer, "ICN");
     return answer;
 }
