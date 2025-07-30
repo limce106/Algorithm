@@ -6,12 +6,14 @@ using namespace std;
 int dx[4] = {-1,1,0,0};
 int dy[4] = {0,0,-1,1};
 
+int n;
+vector<vector<int>> v;
 vector<vector<bool>> visited;
+vector<int> answer;
 
-int dfs(vector<vector<int>>& v, int& n, int x, int y)
+int dfs(vector<vector<int>>& v, int x, int y, int count)
 {
     visited[x][y] = true;
-    int cnt = 1;
     
     for(int i = 0; i < 4; i++)
     {
@@ -20,26 +22,21 @@ int dfs(vector<vector<int>>& v, int& n, int x, int y)
         
         if(nx < 0 || nx >= n || ny < 0 || ny >= n)
             continue;
-        if(visited[nx][ny])
-            continue;
-        if(v[nx][ny] == 0)
+        if(visited[nx][ny] || v[nx][ny] == 0)
             continue;
         
-        cnt += dfs(v, n, nx, ny);
+        count += dfs(v, nx, ny, 1);
     }
     
-    return cnt;
+    return count;
 }
 
 int main()
 {
-    int n;
     cin >> n;
     
-    vector<vector<int>> v(n, vector<int>(n,0));
-    visited.resize(n, vector<bool>(n,false));
-    
-    vector<int> answer;
+    v.resize(n, vector<int>(n,0));
+    visited.resize(n,vector<bool>(n, false));
     
     for(int i = 0; i < n; i++)
     {
@@ -56,16 +53,16 @@ int main()
     {
         for(int j = 0; j < n; j++)
         {
-            if(v[i][j] == 1 && !visited[i][j])
+            if(!visited[i][j] && v[i][j] == 1)
             {
-                 answer.push_back(dfs(v, n, i, j));   
+                answer.push_back(dfs(v, i, j , 1));
             }
         }
     }
     
     sort(answer.begin(), answer.end());
-    cout << answer.size() << endl;
     
+    cout << answer.size() << endl;
     for(int i = 0; i < answer.size(); i++)
     {
         cout << answer[i] << endl;
