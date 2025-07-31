@@ -15,36 +15,37 @@ bool cmpPlay(pair<int, int> a, pair<int, int> b)
     if(a.first == b.first)
         return a.second < b.second;
     
-    return a.first > b.first;
+    return a.first > b.first; 
 }
 
 vector<int> solution(vector<string> genres, vector<int> plays) {
     vector<int> answer;
-    map<string, int> totalPlay;
-    map<string, vector<pair<int, int>>> playIdx;
+    map<string, int> total;
+    map<string, vector<pair<int, int>>> playindex;
     
     for(int i = 0; i < genres.size(); i++)
     {
-        totalPlay[genres[i]] += plays[i];
-        playIdx[genres[i]].push_back({plays[i], i});
+        total[genres[i]] += plays[i];
+        playindex[genres[i]].push_back({plays[i], i});
     }
     
-    vector<pair<string, int>> v(totalPlay.begin(), totalPlay.end());
-    sort(v.begin(), v.end(), cmpTotal);
+    vector<pair<string, int>> totalVec(total.begin(), total.end());
+    sort(totalVec.begin(), totalVec.end(), cmpTotal);
     
-    for(auto& it : playIdx)
+    for(auto& it : playindex)
     {
         sort(it.second.begin(), it.second.end(), cmpPlay);
     }
     
-    for(int i = 0; i < v.size(); i++)
+    for(auto& it : totalVec)
     {
-        string genre = v[i].first;
-        vector<pair<int, int>> p = playIdx[genre];
+        string genre = it.first;
         
-        for(int j = 0; j < p.size() && j < 2; j++)
+        auto v = playindex[genre];
+        
+        for(int i = 0; i < v.size() && i < 2; i++)
         {
-            answer.push_back(p[j].second);
+            answer.push_back(v[i].second);
         }
     }
     
