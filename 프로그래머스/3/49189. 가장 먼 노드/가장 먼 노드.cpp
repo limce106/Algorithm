@@ -2,45 +2,51 @@
 #include <vector>
 #include <queue>
 #include <algorithm>
+#include <iostream>
 
 using namespace std;
 
 int solution(int n, vector<vector<int>> edge) {
     int answer = 0;
-    vector<vector<int>> graph(n+1);
-    vector<int> dist(n+1,-1);
+    vector<vector<int>> v(n+1);
     
     for(int i = 0; i < edge.size(); i++)
     {
         int a = edge[i][0];
-        int b = edge[i][1];   
+        int b = edge[i][1];
         
-        graph[a].push_back(b);
-        graph[b].push_back(a);
+        v[a].push_back(b);
+        v[b].push_back(a);
     }
     
-    queue<int> q;
-    q.push(1);
-    dist[1] = 0;
+    vector<bool> visited(n+1, false);
+    visited[1] = true;
+    
+    queue<pair<int, int>> q;
+    q.push({1, 0});
+    
+    vector<int> dist;
     
     while(!q.empty())
     {
-        int cur = q.front();
+        int front = q.front().first;
+        int distance = q.front().second;
         q.pop();
         
-        for(int i = 0; i < graph[cur].size(); i++)
+        dist.push_back(distance);
+        
+        for(int i = 0; i < v[front].size(); i++)
         {
-            int node = graph[cur][i];
-            if(dist[node] == -1)
-            {
-                dist[node] = dist[cur]+1;
-                q.push(node);
-            }
+            if(visited[v[front][i]])
+                continue;
+            
+            visited[v[front][i]] = true;
+            q.push({v[front][i], distance+1});
         }
     }
     
-    auto maxDist = *max_element(dist.begin(), dist.end());
-    answer = count(dist.begin(), dist.end(), maxDist);
+    int maxValue = *max_element(dist.begin(), dist.end());
+    int cnt = count(dist.begin(), dist.end(), maxValue);
     
-    return answer;
+    return cnt;
 }
