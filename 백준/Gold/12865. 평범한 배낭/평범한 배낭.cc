@@ -1,0 +1,24 @@
+#include <iostream>
+#include <vector>
+using namespace std;
+
+int main()
+{
+    int n, k;
+    cin >> n >> k;
+    
+    vector<int> dp(k+1, 0);
+    for(int i = 0; i < n; i++)
+    {
+        int weight, value;
+        cin >> weight >> value;
+        
+        for(int j = k; j >= weight; j--)
+        {
+            dp[j] = max(dp[j], dp[j-weight]+value);
+        }
+    }
+    
+    cout << dp[k];
+    return 0;
+}
