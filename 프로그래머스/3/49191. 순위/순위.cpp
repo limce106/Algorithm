@@ -23,27 +23,28 @@ int solution(int n, vector<vector<int>> results) {
             for(int j = 1; j <= n; j++)
             {
                 if(v[i][k] == 1 && v[k][j] == 1)
-                    v[i][j] = 1;
+                    v[i][j] =  1;
                 else if(v[i][k] == -1 && v[k][j] == -1)
-                    v[i][j] = -1;
+                    v[i][j] =  -1;
             }
         }
     }
     
     for(int i = 1; i <= n; i++)
-    {        
+    {
+        int cnt = 0;
         for(int j = 1; j <= n; j++)
         {
             if(i == j)
                 continue;
             
-            if(v[i][j] == 0)
-            {
-                answer++;
-                break;
-            }  
+            if(v[i][j] != 0)
+                cnt++;
         }
+        
+        if(cnt == n-1)
+            answer++;
     }
     
-    return n-answer;
+    return answer;
 }
