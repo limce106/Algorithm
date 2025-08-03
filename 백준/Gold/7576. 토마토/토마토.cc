@@ -11,7 +11,7 @@ int main()
     int n, m;
     cin >> m >> n;
     
-    vector<vector<int>> v(n, vector<int>(m));
+    vector<vector<int>> v(n,vector<int>(m));
     queue<pair<int, int>> q;
     
     for(int i = 0; i < n; i++)
@@ -21,30 +21,26 @@ int main()
             cin >> v[i][j];
             
             if(v[i][j] == 1)
-            {
-                q.push({i,j});
-            }
+                q.push({i, j});
         }
     }
     
-    int days = -1;
-    int size = q.size();
-    
+    int day = -1;
     while(!q.empty())
     {
-        int curSize = q.size();
-        days++;
+        int size = q.size();
+        day++;
         
-        for(int i = 0; i < curSize; i++)
+        for(int i = 0; i < size; i++)
         {
             int x = q.front().first;
             int y = q.front().second;
             q.pop();
             
-            for(int i = 0; i < 4; i++)
+            for(int j = 0; j < 4; j++)
             {
-                int nx = x + dx[i];
-                int ny = y + dy[i];
+                int nx = x + dx[j];
+                int ny = y + dy[j];
                 
                 if(nx < 0 || nx >= n || ny < 0 || ny >= m)
                     continue;
@@ -52,13 +48,12 @@ int main()
                 if(v[nx][ny] == 0)
                 {
                     v[nx][ny] = 1;
-                    q.push({nx, ny});
+                    q.push({nx,ny});
                 }
             }
-        }      
+        }
     }
     
-    // 안 익은 토마토 있는지 검사
     for(int i = 0; i < n; i++)
     {
         for(int j = 0; j < m; j++)
@@ -71,7 +66,6 @@ int main()
         }
     }
     
-    cout << days;
-    
+    cout << day;
     return 0;
 }
