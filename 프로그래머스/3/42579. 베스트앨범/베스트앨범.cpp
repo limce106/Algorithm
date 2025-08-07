@@ -2,7 +2,6 @@
 #include <vector>
 #include <map>
 #include <algorithm>
-
 using namespace std;
 
 bool cmpTotal(pair<string, int> a, pair<string, int> b)
@@ -10,42 +9,48 @@ bool cmpTotal(pair<string, int> a, pair<string, int> b)
     return a.second > b.second;
 }
 
-bool cmpPlay(pair<int, int> a, pair<int, int> b)
+bool cmpPlayIdx(pair<int, int> a, pair<int, int> b)
 {
     if(a.first == b.first)
+    {
         return a.second < b.second;
+    }
     
-    return a.first > b.first; 
+    return a.first > b.first;
 }
 
 vector<int> solution(vector<string> genres, vector<int> plays) {
     vector<int> answer;
     map<string, int> total;
-    map<string, vector<pair<int, int>>> playindex;
+    map<string, vector<pair<int, int>>> playIdx;
     
     for(int i = 0; i < genres.size(); i++)
     {
         total[genres[i]] += plays[i];
-        playindex[genres[i]].push_back({plays[i], i});
+        playIdx[genres[i]].push_back({plays[i], i});
     }
     
-    vector<pair<string, int>> totalVec(total.begin(), total.end());
-    sort(totalVec.begin(), totalVec.end(), cmpTotal);
-    
-    for(auto& it : playindex)
+    vector<pair<string, int>> totalV;
+    for(auto& it : total)
     {
-        sort(it.second.begin(), it.second.end(), cmpPlay);
+        totalV.push_back({it.first, it.second});
     }
     
-    for(auto& it : totalVec)
+    sort(totalV.begin(), totalV.end(), cmpTotal);
+    
+    for(auto& it : playIdx)
     {
-        string genre = it.first;
+        sort(it.second.begin(), it.second.end(), cmpPlayIdx);
+    }
+    
+    for(int i = 0; i < totalV.size(); i++)
+    {
+        string genre = totalV[i].first;
+        auto play = playIdx[genre];
         
-        auto v = playindex[genre];
-        
-        for(int i = 0; i < v.size() && i < 2; i++)
+        for(int j = 0; j < play.size() && j < 2; j++)
         {
-            answer.push_back(v[i].second);
+            answer.push_back(play[j].second);
         }
     }
     
