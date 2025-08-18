@@ -3,14 +3,14 @@
 #include <cmath>
 using namespace std;
 
-struct cmp{
-    bool operator()(int a, int b)
+struct cmp
+{
+    bool operator()(int& a, int &b)
     {
         if(abs(a) == abs(b))
-        {
             return a > b;
-        }
-        return abs(a) > abs(b);
+        else
+            return abs(a) > abs(b);
     }
 };
 
@@ -26,11 +26,7 @@ int main()
         int x;
         cin >> x;
         
-        if(x != 0)
-        {
-            pq.push(x);
-        }
-        else
+        if(x == 0)
         {
             if(pq.empty())
                 cout << 0 << endl;
@@ -39,6 +35,10 @@ int main()
                 cout << pq.top() << endl;
                 pq.pop();
             }
+        }
+        else
+        {
+            pq.push(x);
         }
     }
     
