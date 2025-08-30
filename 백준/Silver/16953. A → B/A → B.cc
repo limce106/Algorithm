@@ -13,26 +13,25 @@ int main()
     
     while(!q.empty())
     {
-        long long front = q.front().first;
-        int curCnt = q.front().second;
+        long long value = q.front().first;
+        int dist = q.front().second;
         q.pop();
         
-        if(front == b)
+        if(value == b)
         {
-            cout << curCnt << endl;
+            cout << dist;
             return 0;
         }
         
-        long long n = front * 2;
+        long long n = value * 2;
         if(n <= b)
-            q.push({n, curCnt+1});
+            q.push({n, dist+1});
         
-        long long m = front * 10 + 1;
+        long long m = value * 10 + 1;
         if(m <= b)
-            q.push({m, curCnt+1});
+            q.push({m, dist+1});
     }
     
-    cout << -1 << endl;
-    
+    cout << -1;
     return 0;
 }
