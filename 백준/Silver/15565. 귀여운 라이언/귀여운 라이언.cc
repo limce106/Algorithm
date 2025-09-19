@@ -8,28 +8,26 @@ int main()
     int n, k;
     cin >> n >> k;
     
-    vector<int> rion_position;
-    
+    vector<int> v;
     for(int i = 0; i < n; i++)
     {
         int input;
         cin >> input;
         
         if(input == 1)
-            rion_position.push_back(i);
+            v.push_back(i);
     }
     
-    int ans = 1000001;
-    
-    if(rion_position.size() < k)
+    if(v.size() < k)
     {
         cout << -1;
         return 0;
     }
     
-    for(int i = 0; i <= rion_position.size() - k; i++)
+    int ans = 1000001;
+    for(int i = 0; i <= v.size() - k; i++)
     {
-        ans = min(ans, rion_position[i + k - 1] - rion_position[i] + 1);
+        ans = min(ans, v[i+k-1] - v[i]+1);
     }
     
     cout << ans;
