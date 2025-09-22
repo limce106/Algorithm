@@ -1,44 +1,46 @@
 #include <iostream>
-#include <algorithm>
 #include <cstring>
 using namespace std;
 
 int main()
 {
-    int n, d, k, c; // 접시의 수, 초밥의 가짓수, 연속해서 먹는 접시의 수, 쿠폰 번호
+    int n, d, k, c;
     cin >> n >> d >> k >> c;
     
-    int arr[30001]; // 회전 초밥 테이블
-    bool check[30001];
-    int maxCnt = 0;
+    int sushi[30001];
+    bool eat[30001] = {false};
+    int ans = 0;
     
-    for(int i = 0; i < n; i++) {
-        cin >> arr[i];
+    for(int i = 0; i < n; i++)
+    {
+        cin >> sushi[i];
     }
     
     for(int i = 0; i < n; i++)
     {
-        int flag = 0; // 중복 개수
         int coupon = 1;
+        int flag = 0;
         
-        // 원형임을 고려
         for(int j = i; j < i + k; j++)
         {
-            // j는 접시의 개수를 초과할 수 있으므로 나머지로 먹었는지 확인
-            if(!check[arr[j % n]])
-                check[arr[j % n]] = true;
+            if(!eat[sushi[j % n]])
+            {
+                eat[sushi[j % n]] = true;
+            }
             else
+            {
                 flag++;
+            }
         }
         
-        if(check[c])
+        if(eat[c])
             coupon = 0;
         
-        maxCnt = max(maxCnt, k - flag + coupon);
-        memset(check, false, sizeof(check));
+        ans = max(ans, k - flag + coupon);
+        memset(eat, false, sizeof(eat));
     }
     
-    cout << maxCnt << endl;
+    cout << ans;
     
     return 0;
 }
