@@ -1,5 +1,5 @@
 #include <iostream>
-#include <cstring>
+#include <vector>
 using namespace std;
 
 int main()
@@ -7,37 +7,40 @@ int main()
     int n, d, k, c;
     cin >> n >> d >> k >> c;
     
-    int sushi[30001];
-    bool eat[30001] = {false};
-    int ans = 0;
-    
+    vector<int> sushi(n);    
     for(int i = 0; i < n; i++)
     {
         cin >> sushi[i];
     }
     
-    for(int i = 0; i < n; i++)
+    vector<int> cnt(d + 1, 0); // 각 종류별 개수
+    int uniqueCnt = 0;    // 중복되지 않는 초밥 종류 개수
+    
+    // 초기 윈도우 [0, k-1]
+    for (int i = 0; i < k; i++) {
+        if (cnt[sushi[i]] == 0) 
+            uniqueCnt++;
+        
+        cnt[sushi[i]]++;
+    }
+    
+    int ans = uniqueCnt + (cnt[c] == 0 ? 1 : 0);
+    
+    for (int i = 1; i < n; i++) 
     {
-        int coupon = 1;
-        int flag = 0;
+        int left = sushi[i - 1];
+        cnt[left]--;
         
-        for(int j = i; j < i + k; j++)
-        {
-            if(!eat[sushi[j % n]])
-            {
-                eat[sushi[j % n]] = true;
-            }
-            else
-            {
-                flag++;
-            }
-        }
+        if (cnt[left] == 0) 
+            uniqueCnt--;
         
-        if(eat[c])
-            coupon = 0;
+        int right = sushi[(i + k - 1) % n];
+        if (cnt[right] == 0)
+            uniqueCnt++;
         
-        ans = max(ans, k - flag + coupon);
-        memset(eat, false, sizeof(eat));
+        cnt[right]++;
+        
+        ans = max(ans, uniqueCnt + (cnt[c] == 0 ? 1 : 0));
     }
     
     cout << ans;
